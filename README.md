@@ -4,6 +4,10 @@ Welcome to the collaborative research repository for our final year project.
 
 To ensure a streamlined, decentralized research workflow, every team member is expected to conduct independent literature reviews, analyze methodologies, and archive findings within this shared space before we synthesize our core system design.
 
+> **Communication Protocol:**  
+> All project communication and updates will take place on Discord. Please ensure you have the Discord application installed on your phone and desktop and remain logged in.
+> - **Text Channel:** `#stella` (for text discussions and async updates)  
+> - **Voice Channel:** `hollow-purple` (for meetings and sync-ups)
 ---
 
 ## 1. Onboarding & Workflow Protocol
@@ -41,7 +45,7 @@ Comprehensive literature tracking is essential for our technical project report 
 - **Include Source Metadata:** Document full URLs, DOIs, author names, publication year, and core problem statements.
 - **Archive Artifacts:** Place downloaded research paper PDFs, whitepapers, datasets, or reference diagrams directly in an `assets/` or `references/` subfolder within your workspace.
 - **Summarize Key Takeaways:** Outline how the research directly applies to our project's technical architecture, algorithms, or evaluation metrics.
-- 
+
 ## 4. Version Control & Synchronization Discipline
 
 To prevent merge divergence and accidental data loss:
@@ -54,7 +58,7 @@ To prevent merge divergence and accidental data loss:
     ```
     
 3. **Push on Intervals:** **Always commit and push your progress before taking breaks, switching machines, or concluding your work session.**
-4. 
+
 ## 5. Proposed Internal Folder Structure (Example)
 
 You may design your workspace as you see fit, but here is a recommended template:
