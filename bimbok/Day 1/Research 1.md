@@ -27,7 +27,7 @@ Pedestrian traffic is an inherent and important part of urban mobility, and with
  Application of AI and/or ML methods in optimisation of pedestrian traffic under normal operations or emergency conditions. 
  Applications of advanced statistical mechanics or econometrics modelling methods in pedestrian traffic simulation.
 
-# [[void 2]]
+# [[void 3]]
 ## Mathematicians uncover the logic behind how people walk in crowds
 
 https://news.mit.edu/2025/mathematicians-uncover-logic-behind-how-crowds-walk-0324
@@ -54,5 +54,48 @@ Small angular spread                    Large angular spread
 ```
 
 Overall, the research demonstrates how simple individual walking behaviors can produce large-scale patterns of order or disorder in crowds, and provides a quantitative way to predict when this transition is likely to occur.
+
+
+# [[void 4]]
+## Pedestrian Crowd Detection and Segmentation using Multi-Source Feature Descriptors
+
+The research paper **“Pedestrian Crowd Detection and Segmentation using Multi-Source Feature Descriptors”** by Saleh Basalamah and Sultan Daud Khan presents a computer-vision-based approach for detecting and segmenting crowded regions in images. The authors focus on crowd detection as an important preprocessing step for applications such as crowd counting, tracking, density estimation, and behavior analysis. The paper identifies **occlusion and cluttered backgrounds** as major challenges in accurately detecting crowded regions.
+
+The proposed method uses multiple appearance and texture descriptors rather than relying on motion information. The input image is divided into smaller cells, from which three types of features are extracted: **Local Binary Pattern (LBP), Fourier Analysis, and Gray-Level Co-occurrence Matrix (GLCM)**. These complementary features are combined to form a **128-element feature vector**, which is then classified using a **linear Support Vector Machine (SVM)** to distinguish crowd regions from non-crowd regions.
+
+The researchers evaluated their approach using the **UCF CC 50 dataset**, which contains 50 crowd images with significant variation in crowd density, scene, resolution, and viewpoint. The proposed method was compared with several existing approaches, including GMM, MEOF, HOG+SVM, SIFT+SVM, Fourier Analysis, and LBP-based texture analysis. The proposed multi-source feature approach achieved the highest reported **AUC of 0.63** among the compared methods.
+
+The overall methodology can be summarized as follows:
+
+```text
+                Input Image
+                     │
+                     ▼
+             Divide into Cells
+                     │
+          ┌──────────┼──────────┐
+          ▼          ▼          ▼
+         LBP      Fourier      GLCM
+          │       Analysis      │
+          └──────────┼──────────┘
+                     ▼
+             Feature Combination
+                     │
+                     ▼
+              128-Element Vector
+                     │
+                     ▼
+              Linear SVM Classifier
+                     │
+              ┌──────┴──────┐
+              ▼             ▼
+            Crowd        Non-Crowd
+              │
+              ▼
+        Crowd Segmentation
+```
+
+Overall, the paper demonstrates that combining **LBP, Fourier, and GLCM features** can improve the detection and segmentation of crowded regions compared with the individual or alternative methods evaluated in the study. The resulting segmentation identifies the regions of an image that correspond to crowds, providing a basis for subsequent crowd-analysis tasks.
+
 
 

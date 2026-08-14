@@ -1,3 +1,4 @@
+# Mathematicians uncover the logic behind how people walk in crowds
 ### Pedestrian Flow, Lane Formation, and the Transition from Order to Disorder
 
 MIT instructor Karol Bacik and his collaborators studied how the movement of human crowds changes between organized and disordered patterns. Their research focuses on common situations such as crowded plazas, crosswalks, and airport concourses, where people move toward different destinations while trying to avoid collisions. The researchers wanted to determine when pedestrians naturally form orderly lanes and when their paths instead become tangled and disorganized.

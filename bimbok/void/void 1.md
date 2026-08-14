@@ -1,3 +1,4 @@
+# Pedestrian crowd dynamics in merging sections: Revisiting the “faster-is-slower” phenomenon
 ### 1. Alerting Logic & Anomaly Detection (Computer Vision / Backend)
 
 In real-time crowd surveillance systems, setting naive alarm rules (e.g., _"alarm whenever running is detected"_) creates high false-positive rates. This research defines how to distinguish **efficient evacuation** from a **dangerous crush**:
