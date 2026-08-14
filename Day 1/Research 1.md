@@ -1,0 +1,29 @@
+The pedestrian crowd problem involves safety risks, movement slowdowns, and bottlenecks that happen when too many people or social groups move together in tight urban spaces, transit hubs, or during evacuations
+
+
+
+# [[void 1]]
+## Pedestrian crowd dynamics in merging sections: Revisiting the “faster-is-slower” phenomenon
+
+https://www.sciencedirect.com/science/article/abs/pii/S0378437117308956
+
+- **Premise vs. Reality:** The classic _“Faster-is-Slower” (FIS)_ theory claims higher escape speed causes clogging and delays, but high-density human experiments ($150$ subjects) showed **"Faster-is-Faster" (FIF)** in merging corridors.
+- **Geometry Impact:** While corridor merging angles affect flow rates, higher speeds consistently improved discharge rates across all tested layouts. 
+- **Boundary Conditions:** FIS is **not universal**; it only triggers in extreme physical bottlenecks where exits are excessively narrow relative to body dimensions.
+- **Simulation / Modeling Layer:** Do not hardcode universal speed penalties at all junctions; apply clogging/friction delays only at severe physical pinch points.
+- **Monitoring & Alert Logic:** High movement speed in wide merging corridors is an efficient flow indicator, whereas high density combined with near-zero velocity indicates a critical bottleneck/stampede risk.
+- **Architectural Insights:** Corridors with optimized merging angles clear crowds faster during evacuations, informing layout planning and crowd-routing algorithms.
+
+
+# void 2
+## Pedestrians & Crowds- Crowd safety and pedestrian traffic: Applications of artificial intelligence, computer vision, physics and econometric methods
+
+https://www.sciencedirect.com/special-issue/100PZRGHRL6
+
+Pedestrian traffic is an inherent and important part of urban mobility, and with the increasing urban populations, the ability to manage crowds of pedestrians and guarantee their safety and acceptability of level of service is going to become of even more importance. The underlying problems of crowd dynamics are multifaceted and require integration of expertise and collaboration between scholars of various domains. This Special Issues seeks innovative applications of Computer Vision (CV), Artificial Intelligence (AI) and Machine Learning (ML) techniques in crowd management. Other innovative methodologies of pedestrian traffic flow modelling and simulation are also considered, including those using physics-based or econometric models. One of the primary aims of this Special Issue is to encourage studies that make a bridge between the modelling/experimental sector of crowd dynamics and the CV and AI sector. Some broad areas of interest are listed below, although the scope is not necessarily limited to these: 
+ Applications of CV and AI methods in field pedestrian data collection, crowd monitoring, anomaly detection and crowd control intervention. 
+ Applications of CV and AI methods in calibration and validation of pedestrian models. 
+ Data driven pedestrian and crowd models that utilise AI, ML or CV methods to obtain real-time feedback 
+ Application of AI and/or ML methods in optimisation of pedestrian traffic under normal operations or emergency conditions. 
+ Applications of advanced statistical mechanics or econometrics modelling methods in pedestrian traffic simulation.
+
