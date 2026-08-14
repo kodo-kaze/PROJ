@@ -27,3 +27,32 @@ Pedestrian traffic is an inherent and important part of urban mobility, and with
  Application of AI and/or ML methods in optimisation of pedestrian traffic under normal operations or emergency conditions. 
  Applications of advanced statistical mechanics or econometrics modelling methods in pedestrian traffic simulation.
 
+# [[void 2]]
+## Mathematicians uncover the logic behind how people walk in crowds
+
+https://news.mit.edu/2025/mathematicians-uncover-logic-behind-how-crowds-walk-0324
+
+Researchers at MIT and their collaborators studied how pedestrian crowds transition between organized and disordered movement. They found that people walking in opposite directions often spontaneously form clear lanes, allowing the crowd to move more efficiently and safely.
+
+The study identified **angular spread**—the variation in the directions pedestrians take—as a key factor in this process. When pedestrians move mostly straight toward their destinations, lane formation is likely. However, when people begin walking at increasingly different angles, the organized lanes become unstable. Mathematical modeling predicted a transition at approximately **13 degrees**, which was also supported by controlled experiments involving participants crossing a simulated crosswalk.
+
+The researchers used fluid-flow mathematics to model the overall movement of a crowd rather than tracking every individual separately. Their experiments showed that greater disorder leads to less efficient movement because pedestrians must make more frequent dodging and avoidance maneuvers. These findings could help in designing airports, crosswalks, stadiums, and other public spaces to encourage safer and more efficient pedestrian movement.
+
+**Basic concept:**
+
+```text
+Small angular spread                    Large angular spread
+        ↓                                       ↓
+  → → → → →                              ↗   →   ↘
+  → → → → →                                 ↖
+  ← ← ← ← ←                              ←      ↓
+  ← ← ← ← ←                                 ↙
+        ↓                                       ↓
+  Organized lanes                         Disordered flow
+
+       < ~13°                               > ~13°
+```
+
+Overall, the research demonstrates how simple individual walking behaviors can produce large-scale patterns of order or disorder in crowds, and provides a quantitative way to predict when this transition is likely to occur.
+
+
