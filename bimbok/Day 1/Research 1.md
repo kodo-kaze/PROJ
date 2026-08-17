@@ -58,7 +58,7 @@ Overall, the research demonstrates how simple individual walking behaviors can p
 
 # [[void 4]]
 ## Pedestrian Crowd Detection and Segmentation using Multi-Source Feature Descriptors
-
+[[Paper_87-Pedestrian_Crowd_Detection_and_Segmentation.pdf]]
 The research paper **“Pedestrian Crowd Detection and Segmentation using Multi-Source Feature Descriptors”** by Saleh Basalamah and Sultan Daud Khan presents a computer-vision-based approach for detecting and segmenting crowded regions in images. The authors focus on crowd detection as an important preprocessing step for applications such as crowd counting, tracking, density estimation, and behavior analysis. The paper identifies **occlusion and cluttered backgrounds** as major challenges in accurately detecting crowded regions.
 
 The proposed method uses multiple appearance and texture descriptors rather than relying on motion information. The input image is divided into smaller cells, from which three types of features are extracted: **Local Binary Pattern (LBP), Fourier Analysis, and Gray-Level Co-occurrence Matrix (GLCM)**. These complementary features are combined to form a **128-element feature vector**, which is then classified using a **linear Support Vector Machine (SVM)** to distinguish crowd regions from non-crowd regions.

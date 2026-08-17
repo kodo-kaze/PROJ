@@ -6,7 +6,7 @@ In real-time crowd surveillance systems, setting naive alarm rules (e.g., _"alar
 - **Flow State Classification Rule:**          $$\text{State} = f(\text{Density } \rho, \text{Velocity } v, \text{Bottleneck Ratio } \gamma)$$
     - **Normal / Fast Egress (exit) (FIF Zone):** High density + High velocity in wide/merging channels $\rightarrow$ **Safe / Rapid Clearing** (No alarm; system tracks discharge throughput).
     - **Clogging / Stampede Hazard (FIS Zone):** High density + Near-zero velocity ($v \to 0$) at severe physical choke points $\rightarrow$ **Critical Alarm** (triggers bottleneck warning, automated route-divert alerts).
-### 2. Calibrating Simulation Engines (Agent-Based Models / Digital Twins)
+### 2. Calibrating Simulation Engines (Agent-Based Models / Digital Twins {A digital twin is ==a live virtual copy of a real object, place, or system==.})
 
 If your project includes a simulation component (e.g., in Python via Pygame/Mesa, Unity, or NetLogo using Helbing’s **Social Force Model**):
 
