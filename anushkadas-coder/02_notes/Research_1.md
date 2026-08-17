@@ -12,11 +12,7 @@ Research on the pedestrian crowd problem focuses on resolving congestion, predic
 * **Architecture & Methodology:** 
   * Introduces a Virtual Graph Trajectory Expert Router using Graph Neural Networks (GNNs). Pedestrians are modeled as nodes $\mathcal{V} = \{v_1, v_2, ..., v_N\}$ and their interactions as edges $\mathcal{E}$.
   * **Feature Representation:** The hidden state $h_i^{(t)}$ of a pedestrian $i$ at time $t$ is updated by aggregating messages from neighboring nodes $j \in \mathcal{N}(i)$. The edge weight or spatial influence is typically a function of their relative Euclidean distance $\|p_i - p_j\|_2$.
-  * **Routing Mechanism:** Instead of a deterministic output, the model predicts a bivariate Gaussian distribution for the next coordinates:
-
-    $$\hat{Y} = \{\hat{p}_i^{(t+1)}, ..., \hat{p}_i^{(t+T_{\text{pred}})}\}$$
-
-    allowing the "expert router" to sample multiple collision-free paths.
+  * **Routing Mechanism:** Instead of a deterministic output, the model predicts a bivariate Gaussian distribution for the next coordinates: $\hat{Y} = \{\hat{p}_i^{(t+1)}, ..., \hat{p}_i^{(t+T_{\text{pred}})}\}$, allowing the "expert router" to sample multiple collision-free paths.
 * **Overcome / Application:** Overcomes the limitation of linear trajectory projection by mathematically embedding collision-avoidance forces. If the distance $\|p_i - p_j\|_2 < \epsilon$ (where $\epsilon$ is a critical safety threshold), the graph attention dynamically shifts to route the pedestrian away, making it an ideal backend for automated crowd surveillance.
 
 [[void 2]]
@@ -49,9 +45,6 @@ Research on the pedestrian crowd problem focuses on resolving congestion, predic
 * **Problem Statement:** Legacy 2D models treat crowds as independent agents. However, at extreme densities (e.g., $\rho > 6 \text{ pax/m}^2$), individual routing choices disappear, and the crowd behaves like a granular fluid driven by mechanical transmission forces.
 * **Architecture & Methodology:**
   * Proposes a paradigm shift to 3D multiscale modeling to capture biomechanical forces like wedging, compression, and balance recovery.
-  * **Force Transmission Mechanics:** The movement of an individual $i$ is no longer just a self-driven velocity, but governed by an extended Langevin-type equation combining driving forces, social repulsion, and physical contact forces $\vec{F}_{ij}^{\text{c}}$:
-
-    $$m_i \frac{d\vec{v}_i}{dt} = \vec{F}_i^{\text{drv}} + \sum_{j \neq i} \vec{F}_{ij}^{\text{rep}} + \sum_{j \neq i} \vec{F}_{ij}^{\text{c}}$$
-
+  * **Force Transmission Mechanics:** The movement of an individual $i$ is no longer just a self-driven velocity, but governed by an extended Langevin-type equation combining driving forces, social repulsion, and physical contact forces. This is modeled as: $m_i \frac{d\vec{v}_i}{dt} = \vec{F}_i^{\text{drv}} + \sum_{j \neq i} \vec{F}_{ij}^{\text{rep}} + \sum_{j \neq i} \vec{F}_{ij}^{\text{c}}$
   * When density peaks, $\sum \vec{F}_{ij}^{\text{c}}$ dominates the equation, leading to wave propagation (crowd quakes). The internal pressure $P$ of the crowd can be quantified to predict structural or human failure.
 * **Overcome / Application:** Overcomes traditional model limitations by explicitly mapping physical interactions. By monitoring the transition where mechanical contact forces supersede behavioral forces ($|\vec{F}^{\text{c}}| \gg |\vec{F}^{\text{drv}}|$), the system can predict fatal crowd collapses and trigger immediate physical mitigation strategies before the critical pressure threshold is breached.
