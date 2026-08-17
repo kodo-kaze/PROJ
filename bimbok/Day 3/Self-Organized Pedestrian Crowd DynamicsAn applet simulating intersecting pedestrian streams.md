@@ -1,4 +1,6 @@
-# [[Research - Self-Organized Pedestrian Crowd Dynamics & Social Force Model]]
+# Research - Self-Organized Pedestrian Crowd Dynamics & Social Force Model
+
+https://itp.uni-frankfurt.de/~gros/StudentProjects/Applets_2014_PedestrianCrowdDynamics/PedestrianApplet.html
 
 ## 📌 Core Takeaways
 
