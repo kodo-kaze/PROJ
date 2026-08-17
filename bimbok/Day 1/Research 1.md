@@ -1,7 +1,7 @@
 The pedestrian crowd problem involves safety risks, movement slowdowns, and bottlenecks that happen when too many people or social groups move together in tight urban spaces, transit hubs, or during evacuations
 
 
-
+DATE: 14/8/2026
 # [[void 1]]
 ## Pedestrian crowd dynamics in merging sections: Revisiting the “faster-is-slower” phenomenon
 
