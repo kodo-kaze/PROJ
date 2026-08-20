@@ -15,7 +15,7 @@ https://www.sciencedirect.com/science/article/abs/pii/S0378437117308956
 - **Architectural Insights:** Corridors with optimized merging angles clear crowds faster during evacuations, informing layout planning and crowd-routing algorithms.
 
 
-# void 2
+# [[void 2]]
 ## Pedestrians & Crowds- Crowd safety and pedestrian traffic: Applications of artificial intelligence, computer vision, physics and econometric methods
 
 https://www.sciencedirect.com/special-issue/100PZRGHRL6
