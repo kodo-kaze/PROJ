@@ -137,16 +137,14 @@ This is one of the strongest pieces of the paper.
 
 The paper obtained:
 
-[  
+$$
 v_0 =  
-1.16\left[1-e^{-4.45(\eta-0.23)}\right]  
-]
+1.16\left[1-e^{-4.45(\eta-0.23)}\right]$$
 
 where
 
-[  
-\eta=\frac{1}{\rho}  
-]
+$$\eta=\frac{1}{\rho}$$ 
+
 
 So:
 
