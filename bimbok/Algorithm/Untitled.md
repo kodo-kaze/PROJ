@@ -86,9 +86,7 @@ Where:
 
 ### Module 1: Crowd State & Bottleneck Risk Classifier
 
-Plaintext
-
-```
+```plaintext
 Algorithm 1: EvaluateCrowdFlowRegime
 Input:
     Frame F_t, Frame F_{t-1}
@@ -131,9 +129,7 @@ Output:
 
 ### Module 2: Least-Effort Merge-Aware Evacuation Dispatcher
 
-Plaintext
-
-```
+```plaintext
 Algorithm 2: LeastEffortEvacuationRouter
 Input:
     Facility Graph G(V, E)
