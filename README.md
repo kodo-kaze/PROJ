@@ -74,53 +74,88 @@ your-folder-name/
 
 ---
 
-## 6. Phase 2: Algorithm Formulation Guidelines
 
-As we transition from literature review to system design, every member is required to formulate and document an algorithmic approach or decision model based on the research they have gathered. 
+## 6. Phase 2: Detailed Guide for Algorithm Formulation
 
-Your proposed algorithm should address a specific aspect of the Pedestrian Crowd Problem (such as density classification, bottleneck detection, dynamic path rerouting, or anomaly detection). Rather than writing unstructured scripts, structure your proposal using formal pseudocode backed by clear inputs, outputs, and logic.
+This guide provides a step-by-step breakdown of how to convert your research notes into an individual algorithm proposal for our final-year project synopsis.
+### 1. What Are We Doing in Phase 2?
 
-### Acceptable Algorithm Patterns & Examples
+In **Phase 1**, everyone gathered research papers, articles, and concepts related to the **Pedestrian Crowd Problem**.
 
-#### Pattern A: Threshold & State Classification Logic
-Used for categorizing crowd hazard states, bottleneck risks, or triggering alerts based on empirical metrics.
+In **Phase 2**, each member selects **one specific sub-problem** from their research and creates a structured algorithm to solve or analyze it.
 
-```text
+
+> **Key Rule:** You are **not** required to write a full working software program right now. You are writing **formal Pseudocode**—a clean, step-by-step logical blueprint showing inputs, processing steps, and expected outputs.
+> 
+## 2. Step-by-Step Instructions
+
+1. **Synthesize All Research Areas:** Your algorithm should combine our collective research findings into a full multi-stage process:
+	1. Extracting crowd density and regions from input frames.
+	2. Analyzing flow vectors and disorder metrics.
+	3. Classifying the crowd hazard state (determining if it is a fast evacuation or a dangerous bottleneck jam).
+	4. Generating the safest evacuation route and adjusting traffic/exit flows dynamically.
+    
+2. **Define Inputs and Outputs:** Identify the exact data needed (e.g., video frame, crowd count, corridor width) and what the algorithm produces (e.g., alert trigger, safe route, hazard score).
+3. **Write Numbered Pseudocode:** Express the logic using standard programming structures (loops, variables, conditions) in numbered steps.
+4. **Link to Research:** Add 2–3 sentences explaining which paper or finding inspired this design.
+5. **Push to Your Folder:** Save your work in your personal workspace directory (e.g., `03_algorithms/algorithm_proposal.md`).
+## 3. Choose One of Three Common Patterns
+
+Select the pattern that best fits your individual research area:
+
+### Pattern A: Threshold & Decision Logic (Best for Anomaly & Safety Rules)
+
+- **When to use:** If your research focuses on crowd thresholds, safety limits, panic detection, or emergency alert states.   
+    
+- **Core Idea:** Take measured variables (such as crowd density $\rho$, movement speed $v$, and walkway width $W$) and evaluate logical conditions to determine system state.
+
+
+```
 Algorithm: ClassifyCrowdHazardState
-Input: Density ρ (pedestrians/m^2), AverageVelocity v (m/s), CorridorWidth W (m)
-Output: HazardLevel (SAFE, HIGH_THROUGHPUT, CRITICAL_JAM)
+Input: 
+    Density ρ (pedestrians per m^2), 
+    AverageVelocity v (meters per second), 
+    CorridorWidth W (meters)
+Output: 
+    HazardLevel (SAFE, HIGH_THROUGHPUT, CRITICAL_JAM)
 
 1. Set CriticalDensityThreshold = 4.0
 2. Set VelocityStallThreshold = 0.2
 3. Set MinimumWidth = 1.0
 
 4. If W < MinimumWidth AND ρ >= CriticalDensityThreshold AND v <= VelocityStallThreshold Then:
-5.      Return HazardLevel.CRITICAL_JAM       // Faster-is-Slower clogging regime
+5.      Return HazardLevel.CRITICAL_JAM       // Severe bottleneck clogging
 6. Else If ρ >= CriticalDensityThreshold AND v > VelocityStallThreshold Then:
-7.      Return HazardLevel.HIGH_THROUGHPUT    // Faster-is-Faster evacuation regime
+7.      Return HazardLevel.HIGH_THROUGHPUT    // Fast, efficient evacuation
 8. Else:
 9.      Return HazardLevel.SAFE
-
 ```
 
-#### Pattern B: Graph & Routing Optimization (DAA)
+### Pattern B: Graph & Routing Logic (Best for Evacuation & Path Planning)
 
-Used for evacuation route planning, exit load balancing, or detour calculation across a mapped facility.
+- **When to use:** If your research focuses on directing people to exits, load balancing corridors, or avoiding choke points.
+    
+- **Core Idea:** Treat the facility floor plan as a network graph ($G = (V, E)$) and compute the lowest-cost evacuation route.
 
-```text
+```
 Algorithm: DynamicEvacuationPathfinding
-Input: Facility Graph G(V, E), Source s, Target Exits Set X, RealTimeDensityMap D
-Output: OptimalEvacuationPath P
+Input: 
+    Facility Graph G(V, E), 
+    Source Node s, 
+    Set of Safe Exits X, 
+    RealTimeDensityMap D
+Output: 
+    OptimalEvacuationPath P
 
 1. Initialize MinPriorityQueue Q
-2. Initialize CostMap dist with ∞ for all vertices v in V, set dist[s] = 0
-3. Q.insert(s, 0)
+2. Initialize CostMap dist with ∞ for all vertices v in V, and set dist[s] = 0
+3. Q.insert(s, priority=0)
 
 4. While Q is not empty:
 5.      u = Q.extractMin()
-6.      If u in X:
+6.      If u is in Set of Safe Exits X:
 7.          Return reconstructPath(u)
-8.      For each neighbor v of u:
+8.      For each neighbor v of node u:
 9.          weight = calculateEdgeCost(Edge(u, v), D[v], mergeAngle(u, v))
 10.         If dist[u] + weight < dist[v]:
 11.             dist[v] = dist[u] + weight
@@ -128,16 +163,21 @@ Output: OptimalEvacuationPath P
 13.             Q.insertOrUpdate(v, dist[v])
 ```
 
-#### Pattern C: Computer Vision & Pipeline Processing
+### Pattern C: Vision & Pipeline Processing (Best for AI & CCTV Analytics)
 
-Used for frame-by-frame inference, density map regression, optical flow tracking, and alerting.
-
-```text
+- **When to use:** If your research focuses on image segmentation, feature extraction (e.g., LBP/GLCM), or video tracking.  
+    
+- **Core Idea:** Process an incoming camera frame through discrete computer vision stages to compute metrics and trigger events.
+    
+```
 Algorithm: ProcessCrowdAnomaly
-Input: VideoStream S, RegionOfInterest ROI
-Output: RealTimeAlertStatus
+Input: 
+    VideoStream S, 
+    RegionOfInterest ROI
+Output: 
+    RealTimeAlertStatus
 
-1. For each incoming frame F in S:
+1. For each incoming frame F in VideoStream S:
 2.      F_cropped = cropToROI(F, ROI)
 3.      density_map = NeuralNetInference(F_cropped)
 4.      count = IntegrateDensity(density_map)
@@ -149,20 +189,31 @@ Output: RealTimeAlertStatus
 10.         TriggerAudibleAlarm()
 11.         BroadcastMQTTAlert(ROI.id, status)
 12.     F_previous = F_cropped
-
 ```
 
----
+## 4. Required Note Template
 
-### Documentation Requirements for Your Workspace
+Create a file at `03_algorithms/algorithm_proposal.md` inside your personal workspace folder and fill out these 5 sections:12
 
-In your personal folder, create a dedicated file (e.g., `03_algorithms/algorithm_proposal.md`) containing:
+```markdown
+# Algorithm Proposal: [Name of Your Algorithm]
 
-1. **Problem Statement:** What specific sub-problem does your algorithm target?
-2. **Inputs & Outputs:** The exact parameters/data required and the generated output.
-3. **Formal Pseudocode:** Clean, numbered step-by-step logic following one of the patterns above.
-4. **Time/Space Complexity:** Brief theoretical bounds (e.g., $O(V \log V + E)$ or $O(N \times M)$ per frame).
-5. **Literature Justification:** A short explanation citing the research paper or principle that supports your design.
+## 1. Problem Statement
+Explain in 2–4 sentences what exact problem this algorithm addresses.
 
+## 2. Input and Output
+- **Inputs:** List all inputs (e.g., Video frame, Density map, Graph layout).
+- **Outputs:** List all outputs (e.g., Alert level, Coordinates, Next safe node).
+
+## 3. Pseudocode
+[Paste your clean, numbered step-by-step pseudocode here]
+
+## 4. Complexity Analysis
+- **Time Complexity:** E.g., O(N) per frame, or O(V log V + E) for graphs.
+- **Space Complexity:** E.g., O(N) for grid storage.
+
+## 5. Research Justification
+Briefly cite the paper, article, or formula that inspired your logic and explain why this approach works.
+```
 
 For any synchronization issues, branch questions, or merge conflicts, coordinate immediately with the [bimbok](https://bratikmkj.vercel.app/) or [aditya](https://adityapaul26.vercel.app/).
