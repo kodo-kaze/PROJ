@@ -86,7 +86,7 @@ Where:
 
 ### Module 1: Crowd State & Bottleneck Risk Classifier
 
-```plaintext
+```cpp
 Algorithm 1: EvaluateCrowdFlowRegime
 Input:
     Frame F_t                            // Current surveillance video frame at time t
@@ -110,8 +110,8 @@ Output:
 7.      CellScore[c] = LinearSVM_Predict(x_c)                      // Classifies cell c as crowd or non-crowd confidence score using trained Linear SVM
 8.  
 9.  D_t = ApplyGaussianFilter2D(CellScore, 
-								KernelSize=11,
-								Sigma=1.5)  // Smooths cell classification grid using an 11x11 2D Gaussian kernel to generate spatial density map
+							KernelSize=11,
+							Sigma=1.5)  // Smooths cell classification grid using an 11x11 2D Gaussian kernel to generate spatial density map
 10. CrowdCount = IntegrateDensity(D_t)      // Sums the continuous smoothed density values across the active crowd mask
 11. ρ = CrowdCount / Area(ROI)              // Computes real-time crowd density (pedestrians per square meter) within the Region of Interest
 12.
