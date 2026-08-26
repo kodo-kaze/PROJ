@@ -89,12 +89,13 @@ Where:
 ```plaintext
 Algorithm 1: EvaluateCrowdFlowRegime
 Input:
-    Frame F_t, Frame F_{t-1}
-    CorridorWidth W
-    CriticalWidth W_crit = 1.0 m
-    CriticalDensity ρ_crit = 4.0 ped/m^2
-    StallVelocity v_stall = 0.25 m/s
-    DisorderAngleLimit θ_limit = 13.0°
+    Frame F_t                            // Current surveillance video frame at time t[cite: 1]
+    Frame F_{t-1}                        // Previous consecutive video frame at time t-1[cite: 1]
+    CorridorWidth W                      // Measured physical width of the passageway/corridor (in meters)[cite: 1]
+    CriticalWidth W_crit = 1.0 m         // Minimum corridor width below which physical clogging/arching occurs[cite: 1]
+    CriticalDensity ρ_crit = 4.0 ped/m^2 // Empirical threshold for severe, dangerous crowd compaction[cite: 1]
+    StallVelocity v_stall = 0.25 m/s     // Near-zero walking speed indicating gridlock/stalling[cite: 1]
+    DisorderAngleLimit θ_limit = 13.0°   // MIT angular spread limit where organized lanes collapse into disorder[cite: 1]
 
 Output:
     HazardState (NORMAL_FLOW, HIGH_THROUGHPUT_FIF, DISORDERED_STREAM, CRITICAL_CLOG_FIS)
@@ -102,15 +103,17 @@ Output:
 
 1.  Divide F_t into grid of 32x32 pixel cells C
 2.  For each cell c in C:
-3.      f_lbp = ExtractLBP(c, P=8, R=1)
-4.      f_fourier = ExtractFourierStatistics(c, cutoff=0.4)
-5.      f_glcm = ExtractGLCMProperties(c, angles=[0, 45, 90, 135])
-6.      x_c = Concatenate([f_lbp, f_fourier, f_glcm])      // 128-element vector
-7.      CellScore[c] = LinearSVM_Predict(x_c)
+3.      f_lbp = ExtractLBP(c, P=8, R=1)                            // Extracts Local Binary Pattern texture histogram using 8 neighbors at radius 1
+4.      f_fourier = ExtractFourierStatistics(c, cutoff=0.4)        // Computes frequency statistics (mean, variance, skewness, kurtosis) with 0.4 cutoff
+5.      f_glcm = ExtractGLCMProperties(c, angles=[0, 45, 90, 135]) // Extracts GLCM texture features (entropy, energy, contrast, homogeneity) at 4 angles
+6.      x_c = Concatenate([f_lbp, f_fourier, f_glcm])              // Combines appearance descriptors into a unified 128-element feature vector
+7.      CellScore[c] = LinearSVM_Predict(x_c)                      // Classifies cell c as crowd or non-crowd confidence score using trained Linear SVM
 8.  
-9.  D_t = ApplyGaussianFilter2D(CellScore, KernelSize=11, Sigma=1.5)
-10. CrowdCount = IntegrateDensity(D_t)
-11. ρ = CrowdCount / Area(ROI)
+9.  D_t = ApplyGaussianFilter2D(CellScore, 
+								KernelSize=11,
+								Sigma=1.5)  // Smooths cell classification grid using an 11x11 2D Gaussian kernel to generate spatial density map
+10. CrowdCount = IntegrateDensity(D_t)      // Sums the continuous smoothed density values across the active crowd mask
+11. ρ = CrowdCount / Area(ROI)              // Computes real-time crowd density (pedestrians per square meter) within the Region of Interest
 12.
 12. FlowVectors = ComputeOpticalFlow(F_{t-1}, F_t, Mask=D_t)
 13. v_avg = MeanMagnitude(FlowVectors)
