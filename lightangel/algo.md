@@ -178,16 +178,16 @@ The paper models:
 
 ### Step duration
 
-[  
+$$
 T_s =  
 0.62[1-e^{-7.79(\eta-0.16)}]  
-]
+$$
 
 ### Step-cycle duration
 
-[  
+$$
 T_{sc}=3.19e^{-6.49\eta}+0.56  
-]
+$$
 
 These relationships were fitted from the experimental footstep data.
 
@@ -214,14 +214,14 @@ The paper doesn't always allow the pedestrian to move for the whole step cycle.
 
 It uses:
 
-[  
+$$
 \Delta t =  
 \begin{cases}  
 T_s & \eta>0.16,;T_s\le T_{sc}\  
 T_{sc} & \eta>0.16,;T_s>T_{sc}\  
 0.01 & \eta\le0.16  
 \end{cases}  
-]
+$$
 
 The last case prevents the simulation from becoming completely deadlocked.
 
@@ -242,7 +242,7 @@ Now we use the Social Force Model.
 
 For pedestrian `p`:
 
-# [  
+$$
 m_p\frac{dv_p}{dt}
 
 m_p\frac{v^0_p e^0_p-v_p}{\tau_p}  
@@ -250,7 +250,7 @@ m_p\frac{v^0_p e^0_p-v_p}{\tau_p}
 \sum_q f_{pq}  
 +  
 \sum_w f_{pw}  
-]
+$$
 
 The first term drives the pedestrian toward their desired velocity.
 
@@ -281,7 +281,7 @@ sliding friction
 
 The interaction force is:
 
-# [  
+$$
 f_{pq}
 
 A_p e^{(r_{pq}-d_{pq})/B_p}n_{pq}  
@@ -290,7 +290,7 @@ kg(r_{pq}-d_{pq})n_{pq}
 +  
 \kappa g(r_{pq}-d_{pq})  
 \Delta v^t_{qp}t_{pq}  
-]
+$$
 
 where:
 
@@ -302,9 +302,9 @@ npq = normalized vector between them
 
 The contact terms activate only when:
 
-[  
+$$
 d_{pq}<r_{pq}  
-]
+$$
 
 according to the paper.
 
@@ -334,7 +334,7 @@ tangential_direction
 
 calculate:
 
-# [  
+$$
 f_{pw}
 
 A_p e^{(r_p-d_{pw})/B_p}n_{pw}  
@@ -343,7 +343,7 @@ kg(r_p-d_{pw})n_{pw}
 +  
 \kappa g(r_p-d_{pw})  
 (v_p\cdot t_{pw})t_{pw}  
-]
+$$
 
 This prevents pedestrians from walking through walls and models physical contact with the boundary.
 
@@ -392,13 +392,13 @@ This is probably the **single most important algorithmic improvement** you shoul
 
 For pedestrian `p`:
 
-# [  
+$$
 r_p(t_{n+1,s})
 
 r_p(t_{n,s})  
 +  
 \Delta t,v_p(t_{n,s})  
-]
+$$
 
 from the paper's Eq. 13.
 
@@ -424,9 +424,9 @@ This is another interesting feature from the paper.
 
 At approximately:
 
-[  
+$$
 \rho = 1.80;persons/m^2  
-]
+$$
 
 pedestrian synchronization is most likely.
 
@@ -742,9 +742,9 @@ every pedestrian checks every other pedestrian
 
 gives:
 
-[  
+$$
 O(N^2)  
-]
+$$
 
 per update.
 
@@ -762,9 +762,9 @@ nearby pedestrians
 
 This gives approximately:
 
-[  
+$$
 O(Nk)  
-]
+$$
 
 where `k` is the number of nearby pedestrians, which is much better for large crowds.
 
