@@ -89,13 +89,13 @@ Where:
 ```plaintext
 Algorithm 1: EvaluateCrowdFlowRegime
 Input:
-    Frame F_t                            // Current surveillance video frame at time t[cite: 1]
-    Frame F_{t-1}                        // Previous consecutive video frame at time t-1[cite: 1]
-    CorridorWidth W                      // Measured physical width of the passageway/corridor (in meters)[cite: 1]
-    CriticalWidth W_crit = 1.0 m         // Minimum corridor width below which physical clogging/arching occurs[cite: 1]
-    CriticalDensity ρ_crit = 4.0 ped/m^2 // Empirical threshold for severe, dangerous crowd compaction[cite: 1]
-    StallVelocity v_stall = 0.25 m/s     // Near-zero walking speed indicating gridlock/stalling[cite: 1]
-    DisorderAngleLimit θ_limit = 13.0°   // MIT angular spread limit where organized lanes collapse into disorder[cite: 1]
+    Frame F_t                            // Current surveillance video frame at time t
+    Frame F_{t-1}                        // Previous consecutive video frame at time t-1
+    CorridorWidth W                      // Measured physical width of the passageway/corridor (in meters)
+    CriticalWidth W_crit = 1.0 m         // Minimum corridor width below which physical clogging/arching occurs
+    CriticalDensity ρ_crit = 4.0 ped/m^2 // Empirical threshold for severe, dangerous crowd compaction
+    StallVelocity v_stall = 0.25 m/s     // Near-zero walking speed indicating gridlock/stalling
+    DisorderAngleLimit θ_limit = 13.0°   // MIT angular spread limit where organized lanes collapse into disorder
 
 Output:
     HazardState (NORMAL_FLOW, HIGH_THROUGHPUT_FIF, DISORDERED_STREAM, CRITICAL_CLOG_FIS)
