@@ -257,14 +257,14 @@ The proposed system integrates an end-to-end multi-stage pipeline as depicted in
 \end{figure}
 
 \subsection{Perception and Kinematic State Classification}
-Algorithm \ref{alg:state_classification} details the multi-source appearance extraction and flow regime evaluation logic.
+Algorithm \ref{alg:state_classification} details the multi-source appearance extraction, microscopic foot phase synchronization, dimensionless cognitive metrics, and flow regime evaluation logic.
 
 \begin{algorithm}[H]
-\caption{Multi-Source Crowd Feature Extraction and Regime Evaluation}
+\caption{Multi-Source Micro-Kinematic Hazard Classification \& Dynamic Evacuation Pipeline}
 \label{alg:state_classification}
 \begin{algorithmic}[1]
-\Require Video frames $F_t, F_{t-1}$, corridor width $W$, $W_{\text{crit}}=1.0\text{ m}$, $\rho_{\text{crit}}=4.0\text{ ped/m}^2$, $v_{\text{stall}}=0.25\text{ m/s}$, $\theta_{\text{limit}}=13.0^\circ$.
-\Ensure HazardState, DensityMap $D_t$, DirectionalSpread $\theta_{\text{spread}}$.
+\Require Video frames $F_t, F_{t-1}$, corridor width $W$, $W_{\text{crit}}=1.0\text{ m}$, $\rho_{\text{crit}}=4.0\text{ ped/m}^2$, $v_{\text{stall}}=0.25\text{ m/s}$, $\theta_{\text{limit}}=13.0^\circ$, phase sync threshold $S_{\text{thresh}}=0.75$, critical avoidance $A_{\text{crit}}=0.8$.
+\Ensure HazardState, DensityMap $D_t$, DirectionalSpread $\theta_{\text{spread}}$, OptimalPath $P$.
 \State Partition current frame $F_t$ into uniform $32\times 32$ pixel cells $C$.
 \For{each cell $c \in C$}
     \State $f_{\text{LBP}} \gets \text{ExtractLBP}(c, P=8, R=1)$
@@ -276,25 +276,29 @@ Algorithm \ref{alg:state_classification} details the multi-source appearance ext
 \State $D_t \gets \text{ApplyGaussianFilter2D}(\text{CellScore}, K_{11\times 11}, \sigma=1.5)$
 \State $\rho \gets \text{IntegrateDensity}(D_t) / \text{Area}(\text{ROI})$
 \State $\vec{V} \gets \text{ComputeOpticalFlow}(F_{t-1}, F_t, \text{Mask}=D_t)$
-\State $v_{\text{avg}} \gets \text{MeanMagnitude}(\vec{V})$, \quad $\theta_{\text{spread}} \gets \sqrt{\frac{1}{N}\sum_{i=1}^N (\theta_i - \bar{\theta})^2}$
-\If{$W < W_{\text{crit}} \land \rho \ge \rho_{\text{crit}} \land v_{\text{avg}} \le v_{\text{stall}}$}
-    \State \Return ($\text{HazardState.CRITICAL\_CLOG\_FIS}, D_t$)
+\State $v_{\text{avg}} \gets \text{MeanMagnitude}(\vec{V})$, \quad $\sigma_v^2 \gets \text{Variance}(\vec{V})$
+\State $\theta_{\text{spread}} \gets \sqrt{\frac{1}{N}\sum_{i=1}^N (\theta_i - \bar{\theta})^2}$
+\State $S_{\text{phase}} \gets \text{ComputeHilbertPhaseSync}(\text{AnkleKeypoints}(F_t, F_{t-1}))$ \Comment{Foot-level step locking}
+\State $I_{\text{num}} \gets \rho / (\max(v_{\text{avg}}/v_{\text{free}}, 0.01))^2$, \quad $A_{\text{num}} \gets \text{LateralFluidDeviation}(\vec{V})$
+\If{($W < W_{\text{crit}} \land \rho \ge \rho_{\text{crit}} \land v_{\text{avg}} \le v_{\text{stall}}) \lor (S_{\text{phase}} \ge S_{\text{thresh}} \land A_{\text{num}} \ge A_{\text{crit}})$}
+    \State $\text{HazardState} \gets \text{HazardState.CRITICAL\_CLOG\_FIS}$
 \ElsIf{$\rho \ge \rho_{\text{crit}} \land v_{\text{avg}} > v_{\text{stall}} \land \theta_{\text{spread}} \le \theta_{\text{limit}}$}
-    \State \Return ($\text{HazardState.HIGH\_THROUGHPUT\_FIF}, D_t$)
-\ElsIf{$\theta_{\text{spread}} > \theta_{\text{limit}} \land \rho > 2.0$}
-    \State \Return ($\text{HazardState.DISORDERED\_STREAM}, D_t$)
+    \State $\text{HazardState} \gets \text{HazardState.HIGH\_THROUGHPUT\_FIF}$
+\ElsIf{$\theta_{\text{spread}} > \theta_{\text{limit}} \lor I_{\text{num}} > 4.0$}
+    \State $\text{HazardState} \gets \text{HazardState.DISORDERED\_STREAM}$
 \Else
-    \State \Return ($\text{HazardState.NORMAL\_FLOW}, D_t$)
+    \State $\text{HazardState} \gets \text{HazardState.NORMAL\_FLOW}$
 \EndIf
+\State \Return ($\text{HazardState}, D_t, \theta_{\text{spread}}$)
 \end{algorithmic}
 \end{algorithm}
 
 \subsection{Least-Effort Dynamic Evacuation Routing}
-Let the corridor network be modeled as a directed graph $G(V, E)$. Grounded in Zipf's Principle of Least Effort \cite{zipf1949human} and the PLEdestrians framework \cite{guy2010pledestrians}, the dynamic edge weight $C(u, v)$ for edge $(u, v)$ with length $d_{uv}$, bottleneck width $W_v$, and merge angle $\Phi_{uv}$ is computed as:
+Let the corridor network be modeled as a directed graph $G(V, E)$. Grounded in Zipf's Principle of Least Effort \cite{zipf1949human}, the PLEdestrians framework \cite{guy2010pledestrians}, dynamic asynchronous social force mechanics, and architectural stress relief, the dynamic edge weight $C(u, v)$ for edge $(u, v)$ with length $d_{uv}$, bottleneck width $W_v$, merge angle $\Phi_{uv}$, and architectural relief factor $M_{\text{arch}}$ is computed as:
 \begin{equation}
-C(u, v) = \frac{d_{uv}}{\max(v_{\text{eff}}, 0.1)} + \alpha \cdot D_t[v] + \beta \cdot \left(\frac{1}{\max(W_v, 0.8)}\right) + \gamma \cdot \sin\left(\frac{\Phi_{uv}}{2}\right)
+C(u, v) = \left[ \frac{d_{uv}}{\max(v_{\text{eff}}, 0.1)} + \alpha \cdot D_t[v] + \beta \cdot \left(\frac{1}{\max(W_v, 0.8)}\right) + \gamma \cdot \sin\left(\frac{\Phi_{uv}}{2}\right) \right] \times M_{\text{arch}} \times \left(1 + \delta \cdot I_{\text{num}}\right)
 \end{equation}
-When target vertex $v$ triggers $\text{HazardState.CRITICAL\_CLOG\_FIS}$, $C(u, v) = \infty$, dynamically forcing priority-queue routing to divert evacuees away from saturated choke points. Furthermore, for urban crossing nodes $k$, pedestrian walk phases are dynamically extended:
+where $M_{\text{arch}} = 0.75$ for funnel-shaped corridors and $0.60$ for edges equipped with asymmetric deflecting pillars. When target vertex $v$ triggers $\text{HazardState.CRITICAL\_CLOG\_FIS}$, $C(u, v) = \infty$, dynamically forcing priority-queue routing to divert evacuees away from saturated choke points. Furthermore, for urban crossing nodes $k$, pedestrian walk phases are dynamically extended:
 \begin{equation}
 S_{\text{adjust}}[k].\text{extendWalkPhaseBy} = \min(15.0, D_t[k] \times 2.5)\text{ seconds}
 \end{equation}
