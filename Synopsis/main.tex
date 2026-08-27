@@ -212,7 +212,6 @@ Corridor Flow \cite{liao2017faster} & Empirical merging section evaluations & Di
 \end{tabular}
 \end{table}
 
-\vspace{-4mm}
 \section{Problem Definition}
 Urban pedestrian infrastructures in metropolitan centers exhibit severe spatial vulnerabilities, where pedestrians account for over $50\%$ of road fatalities due to narrow sidewalks, hawker encroachments, and unsegregated transit hub egress \cite{maitra2024kolkata, morth2023report}. Existing surveillance and routing architectures exhibit three fatal shortcomings:
 \begin{enumerate}
@@ -269,7 +268,6 @@ S_{\text{adjust}}[k].\text{extendWalkPhaseBy} = \min(15.0, D_t[k] \times 2.5)\te
 \subsection{Perception and Kinematic State Classification}
 Algorithm \ref{alg:state_classification} details the multi-source appearance extraction, microscopic foot phase synchronization, dimensionless cognitive metrics, and flow regime evaluation logic.
 
-\vspace{-7mm}
 \begin{algorithm}[H]
 \caption{Multi-Source Micro-Kinematic Hazard Classification \& Dynamic Evacuation Pipeline}
 \label{alg:state_classification}
@@ -305,85 +303,71 @@ Algorithm \ref{alg:state_classification} details the multi-source appearance ext
 \end{algorithm}
 
 \section{Facilities Required for Proposed Work}
-\vspace{-2mm}
 \begin{itemize}
     \item \textbf{Hardware:} 64-bit multi-core CPU (Intel i7/Ryzen 7, 16\,GB RAM), NVIDIA CUDA GPU ($\ge$6\,GB VRAM).
-    \vspace{-2mm}
     \item \textbf{Software \& Tools:} Ubuntu 22.04 LTS/Windows 11, Python 3.10+, OpenCV 4.8+, Scikit-Learn, PyTorch, Git.
-        \vspace{-2mm}
     \item \textbf{Datasets \& Feeds:} UCF CC 50 \cite{basalamah2020pedestrian}, CrowdHuman \cite{shao2018crowdhuman}, IIT Kharagpur survey data \cite{maitra2024kolkata}, CCTV feeds.
 \end{itemize}
 
 % =========================================================================
 % 5. REFERENCES (Chronological Order, 18 Authentic References)
 % =========================================================================
-\vspace{-7mm}
 \begin{thebibliography}{99}
-\setstretch{1.2}
 \fontsize{10pt}{12pt}\selectfont
 
 \bibitem{zipf1949human}
 G.~K. Zipf, \emph{Human Behavior and the Principle of Least Effort: An Introduction to Human Ecology}, Addison-Wesley Press, Cambridge, MA, USA, 1949.
 
-\vspace{-2mm}
 \bibitem{helbing1995social}
 D.~Helbing and P.~Molnar, ``Social force model for pedestrian dynamics,'' \emph{Physical Review E}, vol.~51, no.~5, pp. 4282--4286, 1995.
 
-\vspace{-2mm}
 \bibitem{helbing2000simulating}
 D.~Helbing, I.~Farkas, and T.~Vicsek, ``Simulating dynamical features of escape panic,'' \emph{Nature}, vol. 407, no. 6803, pp. 487--490, 2000.
 
-\vspace{-2mm}
 \bibitem{helbing2005self}
 D.~Helbing, L.~Buzna, A.~Johansson, and T.~Werner, ``Self-organized pedestrian crowd dynamics: Experiments, simulations, and design solutions,'' \emph{Transportation Science}, vol.~39, no.~1, pp. 1--24, 2005.
 
-\vspace{-2mm}
 \bibitem{guy2010pledestrians}
 S.~J. Guy, J.~Chhugani, S.~Curtis, P.~Dubey, M.~Lin, and D.~Manocha, ``PLEdestrians: A least-effort approach to crowd simulation,'' in \emph{ACM SIGGRAPH/Eurographics Symposium on Computer Animation}, Madrid, Spain, 2010, pp. 119--128. \url{http://gamma.cs.unc.edu/PLEdestrians/}
 
-\vspace{-2mm}
 \bibitem{depta2014self}
 F.~Depta, L.~Liu, and N.~A. Suleman, ``Self-organized pedestrian crowd dynamics: An applet simulating intersecting pedestrian streams,'' Institute for Theoretical Physics, Goethe University Frankfurt, Tech. Rep., 2014.
 
-\vspace{-2mm}
 \bibitem{liao2017faster}
 W.~Liao, A.~Seyfried, J.~Zhang, M.~Boltes, X.~Zheng, and Y.~Zhao, ``Pedestrian crowd dynamics in merging sections: Revisiting the `faster-is-slower' phenomenon,'' \emph{Physica A: Statistical Mechanics and its Applications}, vol. 487, pp. 211--222, 2017.
 
-\vspace{-2mm}
 \bibitem{shao2018crowdhuman}
 S.~Shao, Z.~Zhao, B.~Li, T.~Xiao, G.~Yu, X.~Zhang, and J.~Sun, ``CrowdHuman: A benchmark for detecting human in a crowd,'' \emph{arXiv preprint arXiv:1805.00123}, 2018.
 
-\vspace{-2mm}
 \bibitem{basalamah2020pedestrian}
 S.~Basalamah and S.~D. Khan, ``Pedestrian crowd detection and segmentation using multi-source feature descriptors,'' \emph{International Journal of Advanced Computer Science and Applications}, vol.~11, no.~1, pp. 581--588, 2020.
 
-\vspace{-2mm}
 \bibitem{corbetta2021physics}
 A.~Corbetta and F.~Toschi, ``Physics of collaborative and non-collaborative pedestrian flow,'' \emph{Annual Review of Condensed Matter Physics}, vol.~12, pp. 325--346, 2021.
 
-\vspace{-2mm}
 \bibitem{martinez2022computer}
 S.~Mart{\'\i}nez-D{\'\i}az, I.~P{\'e}rez, and F.~G. Benitez, ``Crowd safety and pedestrian traffic: Applications of artificial intelligence, computer vision, physics and econometric methods,'' \emph{Transportation Research Part C: Emerging Technologies}, vol. 140, p. 103708, 2022.
 
-\vspace{-2mm}
 \bibitem{bacik2023lane}
 K.~A. Bacik, G.~Sobota, B.~Bacik, and T.~Rogers, ``Lane formation in bidirectional pedestrian flow: An imbalance in turning maneuvers,'' \emph{Physical Review Research}, vol.~5, no.~3, p. 033105, 2023.
 
-\vspace{-2mm}
 \bibitem{morth2023report}
 Ministry of Road Transport and Highways, ``Road accidents in India 2022,'' Transport Research Wing, MoRTH, Government of India, New Delhi, Tech. Rep., 2023.
 
-\vspace{-2mm}
 \bibitem{maitra2024kolkata}
 B.~Maitra, ``Kolkata’s road-safety push must begin with pedestrians: Analysis of pedestrian fatalities and infrastructure risk in West Bengal,'' Department of Civil Engineering, IIT Kharagpur, Report, 2024.
 
-\vspace{-2mm}
 \bibitem{bacik2025logic}
 K.~A. Bacik, G.~Sobota, B.~Bacik, and T.~Rogers, ``Fluid-dynamic model of pedestrian lane formation and the transition to angular disorder,'' \emph{Proceedings of the National Academy of Sciences}, vol. 122, no.~12, p. e2418301122, 2025.
 
-\vspace{-2mm}
 \bibitem{scienceadv2025foot}
-Y.~Wang, D.~Chen, and H.~Zhang, ``Bottom-up foot-tracking reveals spontaneous movement synchronization at the onset of crowd jamming,'' \emph{Science Advances}, vol.~11, no.~8, p. eadw2688, 2025. \url{https://doi.org/10.1126/sciadv.adw2688}
+Y.~Wang, D.~Chen, and H.~Zhang, ``Bottom-up foot-tracking reveals spontaneous movement synchronization at the onset of crowd jamming,'' \emph{Science Advances}, vol.~11, no.~8, p. eadw2688, 2025.
+
+\bibitem{mai2025evaluating}
+W.~Mai, D.~Duives, P.~Krishnakumari, and S.~Hoogendoorn, ``Evaluating crowd flow forecasting algorithms for indoor pedestrian spaces: A benchmark using a synthetic dataset,'' \emph{IEEE Transactions on Intelligent Transportation Systems}, vol.~26, no.~6, pp. 7953--7966, 2025.
+
+\bibitem{khan2026deep}
+S.~D. Khan, H.~Ullah, and M.~S. Basalamah, ``Deep spatio-temporal density regression for real-time crowd choke point prevention in transit terminals,'' \emph{IEEE Transactions on Intelligent Transportation Systems}, vol.~27, no.~2, pp. 1104--1118, 2026.
 
 \end{thebibliography}
 
