@@ -6,6 +6,7 @@
 \usepackage[top=0.8in, bottom=0.8in, left=1.0in, right=0.5in]{geometry}
 \usepackage{setspace}
 \usepackage{fancyhdr}
+\usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{eso-pic}
 \usepackage{amsmath, amsfonts, amssymb}
@@ -63,40 +64,49 @@
 \thispagestyle{empty}
 \begin{center}
     \vspace*{0.1in}
-    {\fontsize{20pt}{24pt}\bfseries MULTI-SOURCE PEDESTRIAN CROWD HAZARD CLASSIFICATION AND DYNAMIC EVACUATION ROUTING SYSTEM \par}
+    {\fontsize{20pt}{24pt}\bfseries PEDESTRIAN CROWD HAZARD CLASSIFICATION AND DYNAMIC EVACUATION ROUTING SYSTEM \par}
 
-    \vspace{0.3in}
+    \vspace{0.25in}
     {\fontsize{14pt}{17pt}\bfseries PROJECT SYNOPSIS \par}
-    \vspace{0.06in}
+    \vspace{0.05in}
     {\fontsize{12pt}{15pt}\selectfont OF PROJECT-II (PROJ-IT781) \par}
 
-    \vspace{0.3in}
+    \vspace{0.25in}
     {\fontsize{14pt}{17pt}\bfseries BACHELOR OF TECHNOLOGY \par}
-    \vspace{0.06in}
+    \vspace{0.05in}
     {\fontsize{12pt}{15pt}\selectfont in \par}
-    \vspace{0.06in}
+    \vspace{0.05in}
     {\fontsize{16pt}{19pt}\bfseries Information Technology \par}
 
-    \vspace{0.3in}
-    {\fontsize{12pt}{15pt}\selectfont SUBMITTED BY (in order of University Roll Numbers) \par}
-    \vspace{0.15in}
-    
+    {\fontsize{12pt}{15pt}\selectfont SUBMITTED BY (in order of University Roll Numbers)\par}
+    \vspace{0.12in}
+
     {\fontsize{12pt}{15pt}\selectfont
     \begin{tabular}{p{2.8in}p{2.8in}}
-    \textbf{Ankita Dey} & \textbf{Univ. Roll No.:} 13000222001 \\
-    \textbf{Anushka Das} & \textbf{Univ. Roll No.:} 13000222002 \\
-    \textbf{Archi Ghosh} & \textbf{Univ. Roll No.:} 13000222003 \\
-    \textbf{Bimbok Roy} & \textbf{Univ. Roll No.:} 13000222004 \\
-    \textbf{Soham Mondal} & \textbf{Univ. Roll No.:} 13000222005 \\
+    \textbf{Aditya Paul} & \textbf{Univ. Roll No.:} 13000223009 \\
+    \textbf{Ankita Biswas} & \textbf{Univ. Roll No.:} 13000223020 \\
+    \textbf{Anushka Das} & \textbf{Univ. Roll No.:} 13000223023 \\
+    \textbf{Archismita Maity} & \textbf{Univ. Roll No.:} 13000223024 \\
+    \textbf{Bratik Mukherjee} & \textbf{Univ. Roll No.:} 13000223044 \\
     \end{tabular} \par}
 
     \vfill
+
+    \vspace{0.15in}
     {\fontsize{12pt}{15pt}\selectfont Under the Supervision of \par}
     \vspace{0.05in}
-    {\fontsize{14pt}{17pt}\bfseries PROF. (DR.) SUPERVISOR NAME \par}
+    {\fontsize{14pt}{17pt}\bfseries PROF. (DR.) Bijoly Saha \par}
     \vspace{0.05in}
+
+    \vspace{0.15in}
+    \includegraphics[width=1.1in]{techno_logo.png}
+    \vspace{0.15in}
+
     {\fontsize{12pt}{15pt}\selectfont Department of Information Technology \par}
-    {\fontsize{12pt}{15pt}\selectfont Techno Main Salt Lake, Kolkata-700091 \par}
+    \vspace{-2mm}
+    {\fontsize{12pt}{15pt}\selectfont Techno Main Salt Lake \par}
+    \vspace{-2mm}
+    {\fontsize{12pt}{15pt}\selectfont Kolkata-700091 \par}
     \vspace{0.15in}
 \end{center}
 \end{titlepage}
@@ -106,16 +116,27 @@
 % =========================================================================
 \newpage
 \thispagestyle{empty}
+
+% Header with Official Logo (Left) and Department Details (Right)
+\noindent
+\begin{minipage}[c]{0.16\textwidth}
+    \includegraphics[width=0.95in]{techno_logo.png}
+\end{minipage}%
+\hfill
+\begin{minipage}[c]{0.82\textwidth}
+    \raggedleft
+    {\fontsize{13pt}{16pt}\bfseries Department of Information Technology \par}
+    {\fontsize{12pt}{15pt}\bfseries Techno Main Salt Lake \par}
+    {\fontsize{10pt}{13pt}\selectfont EM-4/1, Salt Lake City, Kolkata-700091 \par}
+\end{minipage}
+
+\vspace{0.25in}
 \begin{center}
-    {\fontsize{14pt}{17pt}\bfseries Department of Information Technology \par}
-    {\fontsize{13pt}{16pt}\bfseries Techno Main Salt Lake \par}
-    {\fontsize{11pt}{14pt}\selectfont EM-4/1, Salt Lake City, Kolkata-700091 \par}
-    \vspace{0.25in}
     {\fontsize{14pt}{17pt}\bfseries \underline{Supervisor's Verification} \par}
 \end{center}
 
 \vspace{0.25in}
-\noindent This is verified that the synopsis entitled \textbf{``Multi-Source Pedestrian Crowd Hazard Classification and Dynamic Evacuation Routing System''} is a bonafide record of the final year project work being carried out by \textbf{Ankita Dey (13000222001), Anushka Das (13000222002), Archi Ghosh (13000222003), Bimbok Roy (13000222004), and Soham Mondal (13000222005)}, students of B.Tech in Information Technology, under my supervision.
+\noindent This is verified that the synopsis entitled \textbf{``Pedestrian Crowd Hazard Classification and Dynamic Evacuation Routing System''} is a bonafide record of the final year project work being carried out by \textbf{Aditya Paul (13000223009), Ankita Biswas (13000223020), Anushka Das (13000223023), Archismita Maity (13000223024), and Bratik Mukherjee (13000223044)}, students of B.Tech in Information Technology, under my supervision.
 
 \vspace{0.15in}
 \noindent The content presented in this synopsis is in accordance with the academic standards and guidelines prescribed by the department.
@@ -209,13 +230,13 @@ The proposed system integrates an end-to-end multi-stage pipeline as depicted in
     node distance=0.42in,
     auto,
     block/.style={
-        rectangle, 
-        draw=black, 
-        fill=white, 
-        thick, 
-        text width=5.4in, 
-        align=center, 
-        rounded corners=2pt, 
+        rectangle,
+        draw=black,
+        fill=white,
+        thick,
+        text width=5.4in,
+        align=center,
+        rounded corners=2pt,
         font=\small
     },
     line/.style={draw=black, -{Latex[length=2.5mm]}, thick}
