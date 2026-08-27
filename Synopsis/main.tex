@@ -36,8 +36,10 @@
 \captionsetup[table]{position=top, font={small,bf}, skip=5pt}
 \captionsetup[figure]{position=bottom, font={small,bf}, skip=5pt}
 
-% Table of Contents dots and spacing
+% Table of Contents dots and compact spacing (zero waste)
 \renewcommand{\cftdot}{\cftdotsep}
+\setlength{\cftbeforesecskip}{2pt}
+\setlength{\cftbeforesubsecskip}{1pt}
 
 % --- Global Page Border (Single Line of width 3/4 pt = 0.75pt on Every Page) ---
 \AddToShipoutPictureBG{%
@@ -168,25 +170,21 @@ Date: & Date:
 \vspace{0.15in}
 
 % =========================================================================
-% 3. INDEX / TABLE OF CONTENTS (No Page Number)
+% 3. INDEX & CONTENT (Page Numbering Starts Here at Page 1, Zero Page Waste)
 % =========================================================================
 \newpage
-\thispagestyle{empty}
-\begin{center}
-    {\fontsize{14pt}{17pt}\bfseries \underline{INDEX} \par}
-\end{center}
-\vspace{0.15in}
-
-\begin{spacing}{1.2}
-\tableofcontents
-\end{spacing}
-\newpage
-
-% =========================================================================
-% 4. SUBSEQUENT CONTENT (Page Numbering Begins on Abstract Page at 1)
-% =========================================================================
 \pagenumbering{arabic}
 \setcounter{page}{1}
+
+\noindent{\fontsize{14pt}{17pt}\bfseries 1. \quad Index \par}
+\vspace{-0.15in}
+\begin{spacing}{1.1}
+\begingroup
+\renewcommand{\section}[2]{}% suppress default heading
+\tableofcontents
+\endgroup
+\end{spacing}
+\vspace{0.2in}
 
 \section{Abstract}
 Pedestrian crowd safety management in dense transit nodes, crosswalks, and narrow corridors presents an urgent urban safety challenge. High mortality rates in crowd crushes stem from physical bottlenecks, footpath encroachments, and uncoordinated pedestrian-vehicular conflicts. Conventional monitoring systems either rely on naive motion subtraction that triggers false alarms during rapid, orderly evacuations, or depend on static shortest-path graph algorithms ($A^*$/Dijkstra) that route escaping crowds directly into saturated choke points.
@@ -230,13 +228,13 @@ The proposed system integrates an end-to-end multi-stage pipeline as depicted in
     node distance=0.42in,
     auto,
     block/.style={
-        rectangle,
-        draw=black,
-        fill=white,
-        thick,
-        text width=5.4in,
-        align=center,
-        rounded corners=2pt,
+        rectangle, 
+        draw=black, 
+        fill=white, 
+        thick, 
+        text width=5.4in, 
+        align=center, 
+        rounded corners=2pt, 
         font=\small
     },
     line/.style={draw=black, -{Latex[length=2.5mm]}, thick}
@@ -311,12 +309,12 @@ S_{\text{adjust}}[k].\text{extendWalkPhaseBy} = \min(15.0, D_t[k] \times 2.5)\te
 \end{itemize}
 
 % =========================================================================
-% 5. REFERENCES (Chronological Order, 18 Authentic References)
+% 7. REFERENCES (Chronological Order, 18 Authentic References, Fits Exactly 1 Page)
 % =========================================================================
 \newpage
 \begin{thebibliography}{99}
-\setstretch{1.2}
-\fontsize{10pt}{12pt}\selectfont
+\setstretch{1.15}
+\fontsize{9.5pt}{11.5pt}\selectfont
 
 \bibitem{zipf1949human}
 G.~K. Zipf, \emph{Human Behavior and the Principle of Least Effort: An Introduction to Human Ecology}, Addison-Wesley Press, Cambridge, MA, USA, 1949.
