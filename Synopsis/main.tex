@@ -11,6 +11,7 @@
 \usepackage{eso-pic}
 \usepackage{amsmath, amsfonts, amssymb}
 \usepackage{algorithm}
+\usepackage{tocloft}
 \usepackage{algpseudocode}
 \usepackage{booktabs}
 \usepackage{cite}
@@ -37,7 +38,7 @@
 \captionsetup[figure]{position=bottom, font={small,bf}, skip=5pt}
 
 % Table of Contents dots and spacing
-\renewcommand{\cftdot}{\cftdotsep}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 
 % --- Global Page Border (Single Line of width 3/4 pt = 0.75pt on Every Page) ---
 \AddToShipoutPictureBG{%
@@ -78,7 +79,7 @@
     \vspace{0.05in}
     {\fontsize{16pt}{19pt}\bfseries Information Technology \par}
 
-    {\fontsize{12pt}{15pt}\selectfont SUBMITTED BY (in order of University Roll Numbers)\par}
+    {\fontsize{12pt}{15pt}\selectfont SUBMITTED BY \par}
     \vspace{0.12in}
 
     {\fontsize{12pt}{15pt}\selectfont
@@ -304,9 +305,9 @@ Algorithm \ref{alg:state_classification} details the multi-source appearance ext
 
 \section{Facilities Required for Proposed Work}
 \begin{itemize}
-    \item \textbf{Hardware:} 64-bit multi-core CPU (Intel i7/Ryzen 7, 16\,GB RAM), NVIDIA CUDA GPU ($\ge$6\,GB VRAM).
-    \item \textbf{Software \& Tools:} Ubuntu 22.04 LTS/Windows 11, Python 3.10+, OpenCV 4.8+, Scikit-Learn, PyTorch, Git.
-    \item \textbf{Datasets \& Feeds:} UCF CC 50 \cite{basalamah2020pedestrian}, CrowdHuman \cite{shao2018crowdhuman}, IIT Kharagpur survey data \cite{maitra2024kolkata}, CCTV feeds.
+    \item \textbf{Hardware Requirements:} 64-bit multi-core workstation (Intel Core i7/AMD Ryzen 7, minimum 16 GB RAM), NVIDIA GPU with CUDA Compute capability $\ge 7.5$ (minimum 6 GB VRAM) for video frame processing and feature matrix extraction.
+    \item \textbf{Software \& Development Tooling:} Ubuntu Linux 22.04 LTS/Windows 11, Python 3.10+, OpenCV 4.8+ (video parsing, optical flow, texture filtering), Scikit-Learn (Linear SVM classification), PyTorch (density verification), Git version control repository.
+    \item \textbf{Datasets \& Validation Sources:} UCF CC 50 benchmark dataset \cite{basalamah2020pedestrian}, CrowdHuman dataset \cite{shao2018crowdhuman}, IIT Kharagpur pedestrian safety survey data \cite{maitra2024kolkata}, and real-world CCTV crosswalk feeds.
 \end{itemize}
 
 % =========================================================================
