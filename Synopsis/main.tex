@@ -16,7 +16,6 @@
 \usepackage{booktabs}
 \usepackage{cite}
 \usepackage{titlesec}
-\usepackage{tocloft}
 \usepackage{caption}
 \usepackage{url}
 \usepackage{array}
@@ -189,45 +188,47 @@ Date: & Date:
 \setcounter{page}{1}
 
 \section{Abstract}
-Pedestrian crowd safety management in dense transit nodes, crosswalks, and narrow corridors presents an urgent urban safety challenge. High mortality rates in crowd crushes stem from physical bottlenecks, footpath encroachments, and uncoordinated pedestrian-vehicular conflicts. Conventional monitoring systems either rely on naive motion subtraction that triggers false alarms during rapid, orderly evacuations, or depend on static shortest-path graph algorithms ($A^*$/Dijkstra) that route escaping crowds directly into saturated choke points.
+Pedestrian crowd safety in dense urban transit hubs, crosswalks, and bottlenecks is a critical public safety challenge. Traditional surveillance systems rely on basic motion differencing, which triggers false alarms during orderly movement and fails to detect dangerous stationary crowd compaction. Additionally, static shortest-path routing often funnels evacuees directly into saturated choke points.
 
-This project introduces an end-to-end Computer Science framework integrating edge Computer Vision, physical flow mechanics, and heuristic path planning. The perception module segments high-density crowd regions from video frames using multi-source texture fusion (Local Binary Patterns, Fourier analysis, and Gray-Level Co-occurrence Matrix) with a Linear Support Vector Machine. A kinematic flow engine analyzes Optical Flow velocity vectors against a $13^\circ$ directional angular spread threshold to differentiate safe Faster-is-Faster (FIF) egress from fatal Faster-is-Slower (FIS) bottleneck clogging. Finally, a merge-aware evacuation routing engine calculates least-effort escape trajectories while dynamically adjusting pedestrian crossing walk phases.
+To resolve these limitations, this project presents an edge-computing framework integrating computer vision, microscopic flow kinematics, and dynamic least-effort routing across four core stages: (1) motion-invariant crowd density estimation via multi-source texture fusion (LBP, Fourier moments, GLCM) and a Linear SVM; (2) kinematic hazard classification using optical flow velocity vectors, directional angular spread ($13^\circ$ threshold), and footstep sway synchronization; (3) merge-aware dynamic evacuation path planning with architectural pressure-relief mechanisms; and (4) adaptive pedestrian crossing walk-phase actuation. This proposal details the system architecture, hardware/software infrastructure, and phased implementation roadmap.
 
 \section{Literature Review}
-A comprehensive survey of existing research in computer vision crowd analysis, physical dynamics, and evacuation routing was conducted. Table \ref{tab:lit_review} highlights the key methodologies along with their comparative merits and limitations.
+A comprehensive survey of existing research across computer vision crowd analysis, physical crowd dynamics, and evacuation routing was conducted. Table \ref{tab:lit_review} highlights the key methodologies along with their comparative merits and limitations.
 
 \begin{table}[htbp]
 \centering
-\caption{Comparative Analysis of Existing Literature vs. Proposed Architecture}
+\caption{Comparative Analysis of Existing Literature vs. Proposed Implementation}
 \label{tab:lit_review}
-\fontsize{9.5pt}{11.5pt}\selectfont
-\begin{tabular}{@{}p{1.1in}p{1.3in}p{1.9in}p{1.8in}@{}}
+\fontsize{9pt}{11pt}\selectfont
+\begin{tabular}{@{}p{1.0in}p{1.2in}p{1.8in}p{1.7in}@{}}
 \toprule
-\textbf{Domain / Reference} & \textbf{Approach} & \textbf{Merits / Strengths} & \textbf{Limitations / Demerits} \\ \midrule
-Texture Analysis \cite{basalamah2020pedestrian} & LBP + Fourier + GLCM with Linear SVM & Motion-independent; accurately detects static compacted crowds. & High cell computation time without spatial tiling optimization. \\
-Social Force \cite{helbing1995social, helbing2000simulating, depta2014self} & Continuous differential vector force equations & Models emergent counterflow lanes and boundary repulsion. & Tangential friction overestimates clogs in wide corridors. \\
-Least Effort \cite{guy2010pledestrians, zipf1949human} & Biomechanical energy cost optimization & Generates smooth avoidance without artificial oscillations. & Globally intractable; requires greedy local updates. \\
-Angular Flow \cite{bacik2023lane, bacik2025logic} & Fluid-dynamic angular spread formulation & Quantifies $13^\circ$ limit where lane order transitions to disorder. & Evaluated primarily in controlled laboratory environments. \\
-Corridor Flow \cite{liao2017faster} & Empirical merging section evaluations & Disproves universal speed penalty; validates FIF in wide corridors. & Requires strict physical corridor width measurements ($W_{\text{crit}}$). \\
-\textbf{Proposed Framework} & Multi-source vision + FIS/FIF state triage + PLE routing & End-to-end pipeline; zero false alarms on rapid flow; merge-angle aware. & Requires calibrated camera geometry for real-world coordinate mapping. \\ \bottomrule
+\textbf{Domain / Ref.} & \textbf{Approach} & \textbf{Merits} & \textbf{Limitations} \\ \midrule
+Texture Analysis \cite{basalamah2020pedestrian, shao2018crowdhuman} & LBP + Fourier + GLCM via Linear SVM & Motion-invariant; accurately detects static compacted crowds. & Computationally intensive without grid-level optimization. \\
+Micro-Kinematics \cite{scienceadv2025foot, mai2025evaluating} & Foot-level phase synchronization & Detects pre-jamming anomalies prior to total flow arrest. & Sensitive to camera angles; demands high-resolution video. \\
+Social Force Models \cite{helbing1995social, helbing2000simulating, depta2014self} & Differential vector force mechanics & Accurately models lane formation and boundary repulsion. & Computationally prohibitive for real-time edge processing. \\
+Least Effort \cite{guy2010pledestrians, zipf1949human} & Biomechanical energy optimization & Produces smooth avoidance paths without path oscillations. & Globally intractable; requires localized dynamic graph abstraction. \\
+Angular Flow \cite{bacik2023lane, bacik2025logic} & Fluid-dynamic angular spread formulation & Identifies $13^\circ$ stability threshold for lane breakdown. & Evaluated mostly in controlled experimental settings. \\
+Corridor Flow \cite{liao2017faster, corbetta2021physics} & Bottleneck \& merge empirical modeling & Distinguishes Faster-is-Faster (FIF) from Faster-is-Slower (FIS). & Demands precise geometric and merge-angle profiling. \\
+\textbf{Proposed Framework} & Fusion perception + FIF/FIS triage + PLE routing & End-to-end edge pipeline; zero rapid-flow false alarms; merge-aware. & Requires initial structural topology mapping and calibration. \\ \bottomrule
 \end{tabular}
 \end{table}
 
 \section{Problem Definition}
-Urban pedestrian infrastructures in metropolitan centers exhibit severe spatial vulnerabilities, where pedestrians account for over $50\%$ of road fatalities due to narrow sidewalks, hawker encroachments, and unsegregated transit hub egress \cite{maitra2024kolkata, morth2023report}. Existing surveillance and routing architectures exhibit three fatal shortcomings:
+Dense metropolitan pedestrian infrastructures exhibit critical vulnerabilities, causing over $50\%$ of urban road fatalities due to narrow walkways, encroachments, and unsegregated transit egress \cite{maitra2024kolkata, morth2023report}. Current management frameworks suffer from four key shortcomings:
 \begin{enumerate}
-    \item \textbf{Motion-Segmentation Fragility:} Motion-differencing and optical flow thresholding generate false positives from passing vehicles and completely fail when crowds remain stationary under extreme compaction \cite{basalamah2020pedestrian, martinez2022computer}.
-    \item \textbf{Naive Speed-Based Panic Tripping:} Traditional alerting systems trigger stampede alarms whenever velocity increases, failing to distinguish safe rapid evacuations (Faster-is-Faster) from fatal compression gridlocks (Faster-is-Slower) \cite{liao2017faster, helbing2000simulating}.
-    \item \textbf{Suboptimal Shortest-Path Evacuation Routing:} Conventional building evacuation systems route evacuees strictly by Euclidean shortest path, directing crowds directly into right-angle bottlenecks and opposing counterflows \cite{guy2010pledestrians, depta2014self, corbetta2021physics}.
+    \item \textbf{Motion-Segmentation Fragility:} Motion-differencing yields false alarms from ambient movement and completely misses dangerous stationary crowd compaction \cite{basalamah2020pedestrian, martinez2022computer}.
+    \item \textbf{Speed-Based Panic Misclassification:} Threshold-based systems flag any speed surge as panic, failing to distinguish safe high-throughput flow (Faster-is-Faster) from fatal choke-point gridlock (Faster-is-Slower) \cite{liao2017faster, helbing2000simulating}.
+    \item \textbf{Suboptimal Shortest-Path Evacuation:} Standard emergency protocols rely on static Euclidean shortest paths, driving crowds directly into acute-angle merges and saturated bottlenecks \cite{guy2010pledestrians, depta2014self}.
+    \item \textbf{Uncoordinated Pedestrian-Vehicular Conflicts:} Fixed-time traffic signals cannot accommodate real-time density surges, leading to hazardous crosswalk spillover onto roadways \cite{maitra2024kolkata}.
 \end{enumerate}
 
-\section{Methodology and Proposed Workflow}
-The proposed system integrates an end-to-end multi-stage pipeline as depicted in Figure \ref{fig:workflow}.
+\section{Methodology and Planning of Work}
+The proposed project follows an engineering methodology designed to transition from real-time perception to dynamic route actuation. Figure \ref{fig:workflow} illustrates the end-to-end system workflow architecture.
 
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    node distance=0.42in,
+    node distance=0.38in,
     auto,
     block/.style={
         rectangle,
@@ -241,73 +242,59 @@ The proposed system integrates an end-to-end multi-stage pipeline as depicted in
     },
     line/.style={draw=black, -{Latex[length=2.5mm]}, thick}
 ]
-    \node [block] (input) {\textbf{1. Surveillance Ingestion:} CCTV Video Stream ($F_t, F_{t-1}$) \& Spatial Geometry ($W, \Phi$)};
-    \node [block, below of=input] (cv) {\textbf{2. Perception Module:} $32\times 32$ Cell Partitioning $\to$ LBP + Fourier + GLCM (128-D) $\to$ Linear SVM $\to$ Gaussian Smoothing ($11\times 11$) $\to$ Spatial Density Map $D_t$};
-    \node [block, below of=cv] (flow) {\textbf{3. Kinematic Flow Analysis:} Masked Optical Flow $\to$ Average Velocity ($v_{\text{avg}}$) \& Directional Angular Spread ($\theta_{\text{spread}}$)};
-    \node [block, below of=flow] (state) {\textbf{4. Flow Regime Classification:} FIS Critical Clog vs. FIF Rapid Egress vs. Disordered Stream};
-    \node [block, below of=state] (routing) {\textbf{5. Dynamic Routing \& Actuation:} Least-Effort Merge-Aware Graph $C(u, v)$ Update + Adaptive Crosswalk Signal Phasing};
+    \node [block] (input) {\textbf{1. Surveillance Ingestion \& Preprocessing:} Real-Time CCTV Video Stream ($F_t, F_{t-1}$) \& Spatial Geometry ($W, \Phi$)};
+    \node [block, below of=input] (cv) {\textbf{2. Perception \& Density Estimation:} $32\times 32$ Cell Tiling $\to$ LBP + Fourier + GLCM (128-D) $\to$ Linear SVM $\to$ 2D Gaussian Filtering $\to$ Spatial Density Map $D_t$};
+    \node [block, below of=cv] (flow) {\textbf{3. Kinematic Flow Analysis:} Optical Flow Tracking $\to$ Velocity Vectors ($v_{\text{avg}}$), Angular Spread ($\theta_{\text{spread}}$), \& Step Synchronization ($S_{\text{phase}}$)};
+    \node [block, below of=flow] (state) {\textbf{4. Flow Regime Classification:} High-Throughput FIF vs. Critical Clogging FIS vs. Disordered Turbulent Stream};
+    \node [block, below of=state] (routing) {\textbf{5. Dynamic Routing \& Actuation:} Least-Effort Graph $C(u, v)$ Update + Architectural Relief Factor + Adaptive Crosswalk Signal Phasing};
 
     \path [line] (input) -- (cv);
     \path [line] (cv) -- (flow);
     \path [line] (flow) -- (state);
     \path [line] (state) -- (routing);
 \end{tikzpicture}
-\caption{Proposed System Architecture and End-to-End Workflow Diagram}
+\caption{Proposed End-to-End System Implementation Architecture and Workflow Diagram}
 \label{fig:workflow}
 \end{figure}
 
-\subsection{Least-Effort Dynamic Evacuation Routing}
-Let the corridor network be modeled as a directed graph $G(V, E)$. Grounded in Zipf's Principle of Least Effort \cite{zipf1949human}, the PLEdestrians framework \cite{guy2010pledestrians}, dynamic asynchronous social force mechanics, and architectural stress relief, the dynamic edge weight $C(u, v)$ for edge $(u, v)$ with length $d_{uv}$, bottleneck width $W_v$, merge angle $\Phi_{uv}$, and architectural relief factor $M_{\text{arch}}$ is computed as:
-\begin{equation}
-C(u, v) = \left[ \frac{d_{uv}}{\max(v_{\text{eff}}, 0.1)} + \alpha \cdot D_t[v] + \beta \cdot \left(\frac{1}{\max(W_v, 0.8)}\right) + \gamma \cdot \sin\left(\frac{\Phi_{uv}}{2}\right) \right] \times M_{\text{arch}} \times \left(1 + \delta \cdot I_{\text{num}}\right)
-\end{equation}
-where $M_{\text{arch}} = 0.75$ for funnel-shaped corridors and $0.60$ for edges equipped with asymmetric deflecting pillars. When target vertex $v$ triggers $\text{HazardState.CRITICAL\_CLOG\_FIS}$, $C(u, v) = \infty$, dynamically forcing priority-queue routing to divert evacuees away from saturated choke points. Furthermore, for urban crossing nodes $k$, pedestrian walk phases are dynamically extended:
-\begin{equation}
-S_{\text{adjust}}[k].\text{extendWalkPhaseBy} = \min(15.0, D_t[k] \times 2.5)\text{ seconds}
-\end{equation}
+\subsection{Proposed System Architecture}
+The system architecture integrates four cooperative modules:
+\begin{itemize}
+    \item \textbf{Module 1: Perception \& Density Mapping:} Extracts 128-D texture descriptors (LBP, Fourier, GLCM) from $32 \times 32$ cells, using a Linear SVM and Gaussian smoothing to yield a continuous 2D density map ($D_t$) \cite{basalamah2020pedestrian, khan2026deep}.
+    \item \textbf{Module 2: Flow \& Hazard Classifier:} Evaluates velocity ($\vec{V}$), $13^\circ$ angular spread ($\theta_{\text{spread}}$) \cite{bacik2023lane, bacik2025logic}, foot-sway synchronization ($S_{\text{phase}}$) \cite{scienceadv2025foot}, and intrusion index ($I_{\text{num}}$) to triage flow into Normal, FIF, Disordered, or FIS regimes.
+    \item \textbf{Module 3: Least-Effort Evacuation Routing:} Models layout as a directed graph $G(V,E)$ via Least-Effort principles \cite{zipf1949human, guy2010pledestrians}, computing dynamic edge costs with merge and bottleneck penalties to bypass clogged nodes.
+    \item \textbf{Module 4: Signal Actuation \& Alerting:} Computes real-time crosswalk walk-phase extensions ($S_{\text{adjust}} = \min(15.0, D_t \times 2.5)$ s) \cite{maitra2024kolkata} and distributes emergency alerts via MQTT.
+\end{itemize}
 
-\subsection{Perception and Kinematic State Classification}
-Algorithm \ref{alg:state_classification} details the multi-source appearance extraction, microscopic foot phase synchronization, dimensionless cognitive metrics, and flow regime evaluation logic.
+\subsection{Implementation Roadmap and Phased Work Plan}
+The work plan spans four sequential phases over an 8-month timeline:
+\begin{enumerate}
+    \item \textbf{Phase I: Perception Pipeline (Months 1--2):} Dataset curation (UCF CC 50, CrowdHuman), feature extraction, and Linear SVM density training.
+    \item \textbf{Phase II: Flow Kinematics \& Hazard Triage (Months 3--4):} Optical flow tracking, $13^\circ$ spread analysis, foot-sway detection, and FIS/FIF classification.
+    \item \textbf{Phase III: Routing \& Actuation (Months 5--6):} Least-effort graph formulation, merge-penalty impedance modeling, and adaptive signal timing.
+    \item \textbf{Phase IV: Integration \& Validation (Months 7--8):} System benchmarking, edge optimization ($\ge 25\text{ FPS}$), and dashboard deployment.
+\end{enumerate}
 
-\begin{algorithm}[H]
-\caption{Multi-Source Micro-Kinematic Hazard Classification \& Dynamic Evacuation Pipeline}
-\label{alg:state_classification}
-\begin{algorithmic}[1]
-\Require Video frames $F_t, F_{t-1}$, corridor width $W$, $W_{\text{crit}}=1.0\text{ m}$, $\rho_{\text{crit}}=4.0\text{ ped/m}^2$, $v_{\text{stall}}=0.25\text{ m/s}$, $\theta_{\text{limit}}=13.0^\circ$, phase sync threshold $S_{\text{thresh}}=0.75$, critical avoidance $A_{\text{crit}}=0.8$.
-\Ensure HazardState, DensityMap $D_t$, DirectionalSpread $\theta_{\text{spread}}$, OptimalPath $P$.
-\State Partition current frame $F_t$ into uniform $32\times 32$ pixel cells $C$.
-\For{each cell $c \in C$}
-    \State $f_{\text{LBP}} \gets \text{ExtractLBP}(c, P=8, R=1)$
-    \State $f_{\text{Fourier}} \gets \text{ExtractFourierMoments}(c, \text{cutoff}=0.4)$
-    \State $f_{\text{GLCM}} \gets \text{ExtractGLCMProperties}(c, \text{angles}=[0^\circ, 45^\circ, 90^\circ, 135^\circ])$
-    \State $\mathbf{x}_c \gets [f_{\text{LBP}} \,\|\, f_{\text{Fourier}} \,\|\, f_{\text{GLCM}}] \in \mathbb{R}^{128}$
-    \State $\text{CellScore}[c] \gets \text{LinearSVM\_Predict}(\mathbf{x}_c)$
-\EndFor
-\State $D_t \gets \text{ApplyGaussianFilter2D}(\text{CellScore}, K_{11\times 11}, \sigma=1.5)$
-\State $\rho \gets \text{IntegrateDensity}(D_t) / \text{Area}(\text{ROI})$
-\State $\vec{V} \gets \text{ComputeOpticalFlow}(F_{t-1}, F_t, \text{Mask}=D_t)$
-\State $v_{\text{avg}} \gets \text{MeanMagnitude}(\vec{V})$, \quad $\sigma_v^2 \gets \text{Variance}(\vec{V})$
-\State $\theta_{\text{spread}} \gets \sqrt{\frac{1}{N}\sum_{i=1}^N (\theta_i - \bar{\theta})^2}$
-\State $S_{\text{phase}} \gets \text{ComputeHilbertPhaseSync}(\text{AnkleKeypoints}(F_t, F_{t-1}))$ \Comment{Foot-level step locking}
-\State $I_{\text{num}} \gets \rho / (\max(v_{\text{avg}}/v_{\text{free}}, 0.01))^2$, \quad $A_{\text{num}} \gets \text{LateralFluidDeviation}(\vec{V})$
-\If{($W < W_{\text{crit}} \land \rho \ge \rho_{\text{crit}} \land v_{\text{avg}} \le v_{\text{stall}}) \lor (S_{\text{phase}} \ge S_{\text{thresh}} \land A_{\text{num}} \ge A_{\text{crit}})$}
-    \State $\text{HazardState} \gets \text{HazardState.CRITICAL\_CLOG\_FIS}$
-\ElsIf{$\rho \ge \rho_{\text{crit}} \land v_{\text{avg}} > v_{\text{stall}} \land \theta_{\text{spread}} \le \theta_{\text{limit}}$}
-    \State $\text{HazardState} \gets \text{HazardState.HIGH\_THROUGHPUT\_FIF}$
-\ElsIf{$\theta_{\text{spread}} > \theta_{\text{limit}} \lor I_{\text{num}} > 4.0$}
-    \State $\text{HazardState} \gets \text{HazardState.DISORDERED\_STREAM}$
-\Else
-    \State $\text{HazardState} \gets \text{HazardState.NORMAL\_FLOW}$
-\EndIf
-\State \Return ($\text{HazardState}, D_t, \theta_{\text{spread}}$)
-\end{algorithmic}
-\end{algorithm}
+\begin{table}[htbp]
+\centering
+\caption{Project Milestone and Implementation Work Plan}
+\label{tab:work_plan}
+\fontsize{10pt}{12pt}\selectfont
+\begin{tabular}{@{}llp{3.1in}@{}}
+\toprule
+\textbf{Phase / Period} & \textbf{Target Module} & \textbf{Key Deliverables and Implementation Objectives} \\ \midrule
+Phase I (M1--M2) & Perception Pipeline & Feature extraction engine, trained SVM classifier, spatial density maps ($D_t$). \\
+Phase II (M3--M4) & Kinematic Flow Engine & Angular spread analyzer ($\theta_{\text{spread}}$), footstep sync metric, FIS/FIF hazard classifier. \\
+Phase III (M5--M6) & Routing \& Signal Actuation & Merge-aware dynamic graph router, least-effort impedance solver, adaptive signal manager. \\
+Phase IV (M7--M8) & Integration \& Deployment & Edge-optimized pipeline, IoT alert dashboard, latency benchmark ($\ge 25\text{ FPS}$). \\ \bottomrule
+\end{tabular}
+\end{table}
 
 \section{Facilities Required for Proposed Work}
 \begin{itemize}
-    \item \textbf{Hardware Requirements:} 64-bit multi-core workstation (Intel Core i7/AMD Ryzen 7, minimum 16 GB RAM), NVIDIA GPU with CUDA Compute capability $\ge 7.5$ (minimum 6 GB VRAM) for video frame processing and feature matrix extraction.
-    \item \textbf{Software \& Development Tooling:} Ubuntu Linux 22.04 LTS/Windows 11, Python 3.10+, OpenCV 4.8+ (video parsing, optical flow, texture filtering), Scikit-Learn (Linear SVM classification), PyTorch (density verification), Git version control repository.
-    \item \textbf{Datasets \& Validation Sources:} UCF CC 50 benchmark dataset \cite{basalamah2020pedestrian}, CrowdHuman dataset \cite{shao2018crowdhuman}, IIT Kharagpur pedestrian safety survey data \cite{maitra2024kolkata}, and real-world CCTV crosswalk feeds.
+    \item \textbf{Hardware Infrastructure:} Multi-core 64-bit workstation (Intel i7/Ryzen 7, $\ge 16\text{ GB}$ RAM), CUDA-capable NVIDIA GPU ($\ge 6\text{ GB}$ VRAM, compute capability $\ge 7.5$), and an edge deployment module (e.g., NVIDIA Jetson).
+    \item \textbf{Software \& Tooling:} Linux/Windows OS, Python 3.10+, OpenCV (optical flow, texture extraction), Scikit-Learn (Linear SVM), PyTorch, NetworkX (graph modeling), MQTT broker, and Git for version control.
+    \item \textbf{Datasets \& Test Feeds:} UCF CC 50 \cite{basalamah2020pedestrian}, CrowdHuman \cite{shao2018crowdhuman}, pedestrian safety survey data \cite{maitra2024kolkata}, and real-world CCTV crosswalk feeds.
 \end{itemize}
 
 % =========================================================================
@@ -324,9 +311,6 @@ D.~Helbing and P.~Molnar, ``Social force model for pedestrian dynamics,'' \emph{
 
 \bibitem{helbing2000simulating}
 D.~Helbing, I.~Farkas, and T.~Vicsek, ``Simulating dynamical features of escape panic,'' \emph{Nature}, vol. 407, no. 6803, pp. 487--490, 2000.
-
-\bibitem{helbing2005self}
-D.~Helbing, L.~Buzna, A.~Johansson, and T.~Werner, ``Self-organized pedestrian crowd dynamics: Experiments, simulations, and design solutions,'' \emph{Transportation Science}, vol.~39, no.~1, pp. 1--24, 2005.
 
 \bibitem{guy2010pledestrians}
 S.~J. Guy, J.~Chhugani, S.~Curtis, P.~Dubey, M.~Lin, and D.~Manocha, ``PLEdestrians: A least-effort approach to crowd simulation,'' in \emph{ACM SIGGRAPH/Eurographics Symposium on Computer Animation}, Madrid, Spain, 2010, pp. 119--128. \url{http://gamma.cs.unc.edu/PLEdestrians/}
