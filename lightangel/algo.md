@@ -1,5 +1,3 @@
-Yep bro — the original is **way too detailed**. Here’s the compact version keeping only the important algorithm + architecture.
-
 ### DA-ASFC — Short Version
 
 **Goal:** Model pedestrian crowds using density-aware behavior, Social Force interactions, and asynchronous movement.
@@ -143,4 +141,3 @@ Use a **spatial grid/KD-tree** so neighbor searches don't become `O(N²)` for la
 > **DA-ASFC = Social Force Model + density-dependent speed + natural asynchronous footsteps + crowd-regime detection + synchronization + efficient neighbor search.**
 
 And importantly, the paper mainly validates **unidirectional pedestrian motion**, so don't claim this is a universal crowd model.
-
