@@ -59,9 +59,9 @@ Algorithm DA-ASFC
    density and crowd-regime information.
 ```
 
-Absolutely bro 😄 Let's make the whole **DA-ASFC algorithm** super simple.
 
-## 🧠 What is DA-ASFC doing?
+
+## What is DA-ASFC doing?
 
 Imagine **100 people walking through a corridor**.
 
@@ -194,7 +194,7 @@ Lower desired speed
 
 ---
 
-### 6. Decide when the person takes their next step ⭐
+### 6. Decide when the person takes their next step 
 
 This is the special part.
 
@@ -329,7 +329,7 @@ Then the algorithm picks whoever has the **earliest next event**.
 
 ---
 
-# 🔥 Very simple example
+#  Very simple example
 
 Suppose we have:
 
@@ -395,7 +395,7 @@ And so on.
 
 ---
 
-# 🎯 In one super-simple diagram
+# In one super-simple diagram
 
 ```text
         PEOPLE
@@ -430,4 +430,4 @@ And so on.
 
 > **looks at their local crowd → decides how fast to move → decides when to step → feels forces from people/walls → moves → schedules their next step.**
 
-And the **⭐ key novelty** is that pedestrians don't all update at the same time; their movement is handled through an **asynchronous event queue**.
+And the **key novelty** is that pedestrians don't all update at the same time; their movement is handled through an **asynchronous event queue**.
