@@ -95,3 +95,18 @@ def check_kkt_stationarity_residual(grad_lagrangian):
     Checks the stationarity condition of the KKT constraints (nabla_nu L = 0).
     """
     return np.linalg.norm(grad_lagrangian)
+
+## 7. What not to claim
+
+- **Humans do not strictly follow ORCA:** While ORCA is a useful predictive model, real humans exhibit deviations; SICNav remains robust because it replans at 10 Hz in a receding-horizon fashion[cite: 20, 22].
+- **No assumption of perfect goal visibility:** The non-privileged variant (SICNav-np) successfully operates without knowing true human goals by estimating them via velocity projections[cite: 17, 20].
+- **Computational scaling limits:** The optimization complexity scales quadratically with agents and horizon ($O(N^2 T)$); thus, interactive modeling should focus on the 3-4 nearest neighboring agents in dense crowds[cite: 22].
+
+---
+
+## 8. TODO
+
+- [ ] Integrate SICNav bilevel MPC formulation into `pillar_sweep.py` for bottleneck evaluation[cite: 10, 17].
+- [ ] Implement KKT-reformulation constraints using CasADi for real-time exit control[cite: 13, 20].
+- [ ] Add the non-privileged goal estimation method (`SICNav-np` via velocity projection) to handle unobserved pedestrian destinations[cite: 17, 20].
+- [ ] Benchmark collision and freezing frequencies against baseline MPC-CVMM under high crowd densities[cite: 17, 20].
