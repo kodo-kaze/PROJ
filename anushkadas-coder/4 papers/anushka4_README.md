@@ -92,9 +92,7 @@ def relaxed_orca_objective(v, v_pref, zeta, M=1000.0):
 
 def check_kkt_stationarity_residual(grad_lagrangian):
     """
-    Checks the stationarity condition of the KKT constraints (nabla_nu L = 0).
-    """
-    return np.linalg.norm(grad_lagrangian)
+```
 
 ## 7. What not to claim
 
@@ -110,3 +108,7 @@ def check_kkt_stationarity_residual(grad_lagrangian):
 - [ ] Implement KKT-reformulation constraints using CasADi for real-time exit control[cite: 13, 20].
 - [ ] Add the non-privileged goal estimation method (`SICNav-np` via velocity projection) to handle unobserved pedestrian destinations[cite: 17, 20].
 - [ ] Benchmark collision and freezing frequencies against baseline MPC-CVMM under high crowd densities[cite: 17, 20].
+
+    Checks the stationarity condition of the KKT constraints (nabla_nu L = 0).
+    """
+    return np.linalg.norm(grad_lagrangian)
